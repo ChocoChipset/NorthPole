@@ -1,0 +1,17 @@
+{
+  "uuid": "fbfdc288-388e-4a97-928d-f9d075eff1ab",
+  "shortName": "NorthPole",
+  "longName": "NorthPole",
+  "companyName": "MakeAwesomeHappen",
+  "versionCode": 1,
+  "versionLabel": "1.0.0",
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": []
+  }
+}
