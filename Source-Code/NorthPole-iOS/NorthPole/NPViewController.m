@@ -92,7 +92,22 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
     
     if (abs(howRecentLocationIs) < NPDefaultRecentTimeInterval)
     {
-        self.altitudeLabel.text = [NSString stringWithFormat:@"%0.3f m", lastLocation.altitude];
+        NSString *altitudeString = [NSString stringWithFormat:@"%0.3f m", lastLocation.altitude];
+        
+        self.altitudeLabel.text = altitudeString;
+        
+        NSDictionary *update = @{ @(0):[NSNumber numberWithUint8:42],
+                                  @(1):altitudeString };
+        
+        [self.pebbleWatch appMessagesPushUpdate:update onSent:^(PBWatch *watch, NSDictionary *update, NSError *error) {
+            if (!error) {
+                NSLog(@"Successfully sent message.");
+            }
+            else {
+                NSLog(@"Error sending message: %@", error);
+            }
+        }];
+
     }
 }
 
@@ -117,18 +132,7 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
 {
     self.pebbleWatch = watch;
     
-    NSDictionary *update = @{ @(0):[NSNumber numberWithUint8:42],
-                              @(1):@"a string" };
-    
-    [self.pebbleWatch appMessagesPushUpdate:update onSent:^(PBWatch *watch, NSDictionary *update, NSError *error) {
-        if (!error) {
-            NSLog(@"Successfully sent message.");
-        }
-        else {
-            NSLog(@"Error sending message: %@", error);
-        }
-    }];
-    
+
     
 }
 
