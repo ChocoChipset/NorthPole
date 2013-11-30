@@ -56,9 +56,9 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
     
     NSTimeInterval howRecentLocationIs = [timestampForLastLocation timeIntervalSinceNow];
     
-//    if (abs(howRecentLocationIs) < NPDefaultRecentTimeInterval)
+    if (abs(howRecentLocationIs) < NPDefaultRecentTimeInterval)
     {
-        NSLog(@"Altitude: %f", lastLocation.altitude);
+        self.altitudeLabel.text = [NSString stringWithFormat:@"%0.3f m", lastLocation.altitude];
     }
 }
 
@@ -66,7 +66,13 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
-    NSLog(@"Error: %@", error);
+    UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:@"There was an error while retrieving location"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    
+    [errorView show];
 }
 
 
