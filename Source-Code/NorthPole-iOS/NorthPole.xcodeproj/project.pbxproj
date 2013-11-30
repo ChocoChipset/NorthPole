@@ -27,6 +27,12 @@
 		3AA150E5184A8AB500012E6C /* PebbleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150E3184A8AB500012E6C /* PebbleKit.framework */; };
 		3AA150E7184A8AD200012E6C /* PebbleVendor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150E6184A8AD200012E6C /* PebbleVendor.framework */; };
 		3AA150E8184A8AD200012E6C /* PebbleVendor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150E6184A8AD200012E6C /* PebbleVendor.framework */; };
+		3AA150EA184A8B0200012E6C /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150E9184A8B0200012E6C /* ExternalAccessory.framework */; };
+		3AA150EC184A8B0C00012E6C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150EB184A8B0C00012E6C /* libz.dylib */; };
+		3AA150EE184A8B1200012E6C /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150ED184A8B1200012E6C /* CoreBluetooth.framework */; };
+		3AA150F0184A8B1900012E6C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150EF184A8B1900012E6C /* CoreMotion.framework */; };
+		3AA150F2184A8B2000012E6C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150F1184A8B2000012E6C /* CFNetwork.framework */; };
+		3AA150F4184A8B2700012E6C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150F3184A8B2700012E6C /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +69,12 @@
 		3AA150E0184A820500012E6C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3AA150E3184A8AB500012E6C /* PebbleKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PebbleKit.framework; sourceTree = "<group>"; };
 		3AA150E6184A8AD200012E6C /* PebbleVendor.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PebbleVendor.framework; sourceTree = "<group>"; };
+		3AA150E9184A8B0200012E6C /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		3AA150EB184A8B0C00012E6C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		3AA150ED184A8B1200012E6C /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		3AA150EF184A8B1900012E6C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		3AA150F1184A8B2000012E6C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		3AA150F3184A8B2700012E6C /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +82,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA150F4184A8B2700012E6C /* MessageUI.framework in Frameworks */,
+				3AA150F2184A8B2000012E6C /* CFNetwork.framework in Frameworks */,
+				3AA150F0184A8B1900012E6C /* CoreMotion.framework in Frameworks */,
+				3AA150EE184A8B1200012E6C /* CoreBluetooth.framework in Frameworks */,
+				3AA150EC184A8B0C00012E6C /* libz.dylib in Frameworks */,
+				3AA150EA184A8B0200012E6C /* ExternalAccessory.framework in Frameworks */,
 				3AA150E7184A8AD200012E6C /* PebbleVendor.framework in Frameworks */,
 				3AA150E1184A820500012E6C /* CoreLocation.framework in Frameworks */,
 				3AA150AB184A80F600012E6C /* CoreGraphics.framework in Frameworks */,
@@ -116,6 +134,12 @@
 		3AA150A7184A80F600012E6C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3AA150F3184A8B2700012E6C /* MessageUI.framework */,
+				3AA150F1184A8B2000012E6C /* CFNetwork.framework */,
+				3AA150EF184A8B1900012E6C /* CoreMotion.framework */,
+				3AA150ED184A8B1200012E6C /* CoreBluetooth.framework */,
+				3AA150EB184A8B0C00012E6C /* libz.dylib */,
+				3AA150E9184A8B0200012E6C /* ExternalAccessory.framework */,
 				3AA150E2184A8AAA00012E6C /* Pebble */,
 				3AA150E0184A820500012E6C /* CoreLocation.framework */,
 				3AA150A8184A80F600012E6C /* Foundation.framework */,
