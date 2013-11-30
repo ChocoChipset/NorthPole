@@ -8,6 +8,8 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import "NPViewController.h"
+#import <PebbleKit/PebbleKit.h>
+
 
 static const CLLocationDistance NPDefaultDistanceFilter         = 0.0;  // [m]
 static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
