@@ -28,9 +28,15 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    [self setupCoreLocation];
+
     [self setupPebble];
+    [self setupCoreLocation];
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.pebbleWatch closeSession:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,8 +56,17 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
     self.pebbleWatch = [[PBPebbleCentral defaultCentral] lastConnectedWatch];
     [PBPebbleCentral defaultCentral].delegate = self;
     
+    [self.pebbleWatch appMessagesLaunch:^(PBWatch *watch, NSError *error) {
+        if (!error) {
+            NSLog(@"Successfully launched app.");
+        }
+        else {
+            NSLog(@"Error launching app - Error: %@", error);
+        }
+    }
+     ];
     
-    
+
     
 }
 
@@ -59,18 +74,15 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
 
 - (void)setupCoreLocation
 {
-    
-    
     CLLocationManager *locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
     locationManager.distanceFilter = kCLDistanceFilterNone;
     
-    // TODO: Consider and ponder Significant-Change Location Service
-    [locationManager startUpdatingLocation];
-    
     self.locationManager = locationManager;
+    
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void) setupPebbleWatch: (PBWatch *)paramPebbleWatch
@@ -96,8 +108,7 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
         
         self.altitudeLabel.text = altitudeString;
         
-        NSDictionary *update = @{ @(0):[NSNumber numberWithUint8:42],
-                                  @(1):altitudeString };
+        NSDictionary *update = @{@(0):altitudeString };
         
         [self.pebbleWatch appMessagesPushUpdate:update onSent:^(PBWatch *watch, NSDictionary *update, NSError *error) {
             if (!error) {
@@ -130,10 +141,9 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
 - (void)pebbleCentral:(PBPebbleCentral*)central
       watchDidConnect:(PBWatch*)watch isNew:(BOOL)isNew
 {
+    NSLog(@"Connected Watch!");
+    
     self.pebbleWatch = watch;
-    
-
-    
 }
 
 
