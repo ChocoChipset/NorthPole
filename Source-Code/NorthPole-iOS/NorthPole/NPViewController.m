@@ -42,7 +42,7 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
 - (void)setupPebble
 {
     uuid_t myAppUUIDbytes;
-    NSUUID *myAppUUID = [[NSUUID alloc] initWithUUIDString:@"com.mieldemaple.NorthPole"];
+    NSUUID *myAppUUID = [[NSUUID alloc] initWithUUIDString:@"226834ae-786e-4302-a52f-6e7efc9f990c"];
     [myAppUUID getUUIDBytes:myAppUUIDbytes];
     
     [[PBPebbleCentral defaultCentral] setAppUUID:[NSData dataWithBytes:myAppUUIDbytes length:16]];
