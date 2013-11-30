@@ -6,9 +6,17 @@
 //  Copyright (c) 2013 Hector Zarate. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
 #import "NPViewController.h"
 
-@interface NPViewController ()
+static const CLLocationDistance NPDefaultDistanceFilter         = 0.0;  // [m]
+static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
+
+@interface NPViewController () <CLLocationManagerDelegate>
+
+@property (nonatomic, strong) IBOutlet UILabel *altitudeLabel;
+
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
 
@@ -16,8 +24,16 @@
 
 - (void)viewDidLoad
 {
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+
+    locationManager.distanceFilter = kCLDistanceFilterNone;
     
+    // TODO: Consider and ponder Significant-Change Location Service
+    [locationManager startUpdatingLocation];
     
+    self.locationManager = locationManager  ;
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
@@ -28,5 +44,30 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - LocationManagerDelegate
+
+
+-(void)locationManager:(CLLocationManager *)manager
+    didUpdateLocations:(NSArray *)locations
+{
+    CLLocation* lastLocation = [locations lastObject];
+    NSDate *timestampForLastLocation  = lastLocation.timestamp;
+    
+    NSTimeInterval howRecentLocationIs = [timestampForLastLocation timeIntervalSinceNow];
+    
+//    if (abs(howRecentLocationIs) < NPDefaultRecentTimeInterval)
+    {
+        NSLog(@"Altitude: %f", lastLocation.altitude);
+    }
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+    NSLog(@"Error: %@", error);
+}
+
 
 @end
