@@ -14,10 +14,11 @@
 static const CLLocationDistance NPDefaultDistanceFilter         = 0.0;  // [m]
 static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
 
-@interface NPViewController () <CLLocationManagerDelegate>
+@interface NPViewController () <CLLocationManagerDelegate, PBPebbleCentralDelegate>
 
 @property (nonatomic, strong) IBOutlet UILabel *altitudeLabel;
 
+@property (nonatomic, strong) PBWatch* pebbleWatch;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
@@ -26,19 +27,10 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
 
 - (void)viewDidLoad
 {
-    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-
-    locationManager.distanceFilter = kCLDistanceFilterNone;
-    
-    // TODO: Consider and ponder Significant-Change Location Service
-    [locationManager startUpdatingLocation];
-    
-    self.locationManager = locationManager  ;
-    
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	
+    [self setupCoreLocation];
+    [self setupPebble];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,6 +38,46 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)setupPebble
+{
+    uuid_t myAppUUIDbytes;
+    NSUUID *myAppUUID = [[NSUUID alloc] initWithUUIDString:@"com.mieldemaple.NorthPole"];
+    [myAppUUID getUUIDBytes:myAppUUIDbytes];
+    
+    [[PBPebbleCentral defaultCentral] setAppUUID:[NSData dataWithBytes:myAppUUIDbytes length:16]];
+    
+    self.pebbleWatch = [[PBPebbleCentral defaultCentral] lastConnectedWatch];
+    [PBPebbleCentral defaultCentral].delegate = self;
+    
+    
+    
+    
+}
+
+
+
+- (void)setupCoreLocation
+{
+    
+    
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    
+    // TODO: Consider and ponder Significant-Change Location Service
+    [locationManager startUpdatingLocation];
+    
+    self.locationManager = locationManager;
+}
+
+- (void) setupPebbleWatch: (PBWatch *)paramPebbleWatch
+{
+
+}
+
 
 #pragma mark - LocationManagerDelegate
 
@@ -75,6 +107,41 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
                                               otherButtonTitles:nil];
     
     [errorView show];
+}
+
+
+#pragma mark - Pebble WatchDelegate
+
+- (void)pebbleCentral:(PBPebbleCentral*)central
+      watchDidConnect:(PBWatch*)watch isNew:(BOOL)isNew
+{
+    self.pebbleWatch = watch;
+    
+    NSDictionary *update = @{ @(0):[NSNumber numberWithUint8:42],
+                              @(1):@"a string" };
+    
+    [self.pebbleWatch appMessagesPushUpdate:update onSent:^(PBWatch *watch, NSDictionary *update, NSError *error) {
+        if (!error) {
+            NSLog(@"Successfully sent message.");
+        }
+        else {
+            NSLog(@"Error sending message: %@", error);
+        }
+    }];
+    
+    
+}
+
+
+- (void)pebbleCentral:(PBPebbleCentral*)central
+   watchDidDisconnect:(PBWatch*)watch
+{
+    
+    if (self.pebbleWatch == watch ||
+        [watch isEqual:self.pebbleWatch])
+    {
+        self.pebbleWatch = nil;
+    }
 }
 
 
