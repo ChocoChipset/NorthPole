@@ -22,6 +22,7 @@
 		3AA150CD184A80F600012E6C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150AC184A80F600012E6C /* UIKit.framework */; };
 		3AA150D5184A80F600012E6C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3AA150D3184A80F600012E6C /* InfoPlist.strings */; };
 		3AA150D7184A80F600012E6C /* NorthPoleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA150D6184A80F600012E6C /* NorthPoleTests.m */; };
+		3AA150E1184A820500012E6C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150E0184A820500012E6C /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		3AA150D2184A80F600012E6C /* NorthPoleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NorthPoleTests-Info.plist"; sourceTree = "<group>"; };
 		3AA150D4184A80F600012E6C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3AA150D6184A80F600012E6C /* NorthPoleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NorthPoleTests.m; sourceTree = "<group>"; };
+		3AA150E0184A820500012E6C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA150E1184A820500012E6C /* CoreLocation.framework in Frameworks */,
 				3AA150AB184A80F600012E6C /* CoreGraphics.framework in Frameworks */,
 				3AA150AD184A80F600012E6C /* UIKit.framework in Frameworks */,
 				3AA150A9184A80F600012E6C /* Foundation.framework in Frameworks */,
@@ -103,6 +106,7 @@
 		3AA150A7184A80F600012E6C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3AA150E0184A820500012E6C /* CoreLocation.framework */,
 				3AA150A8184A80F600012E6C /* Foundation.framework */,
 				3AA150AA184A80F600012E6C /* CoreGraphics.framework */,
 				3AA150AC184A80F600012E6C /* UIKit.framework */,
@@ -475,6 +479,7 @@
 				3AA150DC184A80F600012E6C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3AA150DD184A80F600012E6C /* Build configuration list for PBXNativeTarget "NorthPoleTests" */ = {
 			isa = XCConfigurationList;
@@ -483,6 +488,7 @@
 				3AA150DF184A80F600012E6C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
