@@ -11,7 +11,9 @@ static GBitmap *icon_bitmap = NULL;
 static char altitude[16];
 
 enum AltitudeKey {
-    ALTITUDE_METERS_KEY = 0x0,  // TUPLE_CSTRING
+    ALTITUDE_METERS_KEY     = 0x0,      // TUPLE_CSTRING
+    COMPASS_DIRECTION_KEY   = 0x1,         // TUPLE_INT
+    COMPASS_DEGREES_KEY     = 0x2,         // TUPLE_INT
 };
 
 static AppSync sync;
@@ -31,11 +33,24 @@ static void sync_tuple_changed_callback(const uint32_t key, const Tuple* new_tup
 {
     switch (key)
     {
-        default:
+
         case ALTITUDE_METERS_KEY:
         {
             text_layer_set_text(text_layer, new_tuple->value->cstring);
+            break;
         }
+        case COMPASS_DIRECTION_KEY:
+        {
+            text_layer_set_text(compass_text_layer, new_tuple->value->cstring);
+            break;
+        }
+        case COMPASS_DEGREES_KEY:
+        {
+//            text_layer_set_text(text_layer, new_tuple->value->cstring);
+            break;
+        }
+        default:
+            break;
     }
 }
 
@@ -85,11 +100,12 @@ static void window_load(Window *window)
     text_layer_set_text_color(compass_text_layer, GColorBlack);
     text_layer_set_background_color(compass_text_layer, GColorClear);
     layer_add_child(window_layer, text_layer_get_layer(compass_text_layer));
-    text_layer_set_text(compass_text_layer, "NW");
+
 
         // initial values
     Tuplet initial_values[] = {
         TupletCString(ALTITUDE_METERS_KEY, "99500m"),
+        TupletCString(COMPASS_DIRECTION_KEY, "NW"),
     };
     
     
