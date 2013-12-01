@@ -104,7 +104,7 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
     
     if (abs(howRecentLocationIs) < NPDefaultRecentTimeInterval)
     {
-        NSString *altitudeString = [NSString stringWithFormat:@"%0.3f m", lastLocation.altitude];
+        NSString *altitudeString = [NSString stringWithFormat:@"%0.0f m", lastLocation.altitude];
         
         self.altitudeLabel.text = altitudeString;
         

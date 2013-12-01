@@ -52,16 +52,17 @@ static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
 
-  text_layer = text_layer_create((GRect) { .origin = { 0, 72 }, .size = { bounds.size.w, 20 } });
+  text_layer = text_layer_create((GRect) { .origin = { 0, 72 }, .size = { bounds.size.w, 90 } });
   text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);
-    
+  text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));
     text_layer_set_text_color(text_layer, GColorWhite);
     text_layer_set_background_color(text_layer, GColorBlack);
+    
   layer_add_child(window_layer, text_layer_get_layer(text_layer));
     
     
     Tuplet initial_values[] = {
-        TupletCString(ALTITUDE_METERS_KEY, "0.0 m"),
+        TupletCString(ALTITUDE_METERS_KEY, "99500m"),
     };
     
     app_sync_init(&sync, sync_buffer, sizeof(sync_buffer), initial_values, ARRAY_LENGTH(initial_values),
