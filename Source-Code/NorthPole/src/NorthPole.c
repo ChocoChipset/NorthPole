@@ -8,13 +8,16 @@ static TextLayer *compass_text_layer;
 static BitmapLayer *icon_layer;
 static GBitmap *icon_bitmap = NULL;
 
-static char altitude[16];
+static char compassValue[6] = "";
+static char compassAbbreviationValue[3] = "";
 
 enum AltitudeKey {
     ALTITUDE_METERS_KEY     = 0x0,      // TUPLE_CSTRING
     COMPASS_DIRECTION_KEY   = 0x1,         // TUPLE_INT
     COMPASS_DEGREES_KEY     = 0x2,         // TUPLE_INT
 };
+
+static bool displayCompassAbbreviation = true;
 
 static AppSync sync;
 static uint8_t sync_buffer[64];
@@ -39,14 +42,25 @@ static void sync_tuple_changed_callback(const uint32_t key, const Tuple* new_tup
             text_layer_set_text(text_layer, new_tuple->value->cstring);
             break;
         }
-        case COMPASS_DIRECTION_KEY:
-        {
-            text_layer_set_text(compass_text_layer, new_tuple->value->cstring);
-            break;
-        }
         case COMPASS_DEGREES_KEY:
         {
-//            text_layer_set_text(text_layer, new_tuple->value->cstring);
+//            compassValue = new_tuple->value->cstring;
+            
+            if (!displayCompassAbbreviation)
+            {
+                text_layer_set_text(compass_text_layer, new_tuple->value->cstring);
+            }
+            
+            break;
+        }
+        case COMPASS_DIRECTION_KEY:
+        {
+//            compassAbbreviationValue = new_tuple->value->cstring;
+            
+            if (displayCompassAbbreviation)
+            {
+                text_layer_set_text(compass_text_layer, new_tuple->value->cstring);
+            }
             break;
         }
         default:
@@ -54,8 +68,18 @@ static void sync_tuple_changed_callback(const uint32_t key, const Tuple* new_tup
     }
 }
 
-static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
-  
+static void select_click_handler(ClickRecognizerRef recognizer, void *context)
+{
+    displayCompassAbbreviation = !displayCompassAbbreviation;
+    
+    if (displayCompassAbbreviation)
+    {
+        text_layer_set_text(compass_text_layer, compassAbbreviationValue);
+    }
+    else
+    {
+        text_layer_set_text(compass_text_layer, compassValue);
+    }
 }
 
 static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
@@ -106,6 +130,7 @@ static void window_load(Window *window)
     Tuplet initial_values[] = {
         TupletCString(ALTITUDE_METERS_KEY, "99500m"),
         TupletCString(COMPASS_DIRECTION_KEY, "NW"),
+        TupletCString(COMPASS_DEGREES_KEY, "0.0"),
     };
     
     
@@ -128,7 +153,7 @@ static void init(void) {
     .unload = window_unload,
   });
     
-    const int inbound_size = 64;
+    const int inbound_size = 128;
     const int outbound_size = 16;
     app_message_open(inbound_size, outbound_size);
     
