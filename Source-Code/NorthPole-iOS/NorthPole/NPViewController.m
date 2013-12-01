@@ -123,8 +123,8 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
     didUpdateLocations:(NSArray *)locations
 {
     CLLocation* lastLocation = [locations lastObject];
-    NSDate *timestampForLastLocation  = lastLocation.timestamp;
     
+    NSDate *timestampForLastLocation  = lastLocation.timestamp;
     NSTimeInterval howRecentLocationIs = [timestampForLastLocation timeIntervalSinceNow];
     
     if (abs(howRecentLocationIs) < NPDefaultRecentTimeInterval)
@@ -160,7 +160,11 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
     NSString *magneticDirectionValueString = [NSString stringWithFormat:@"%0.1f", magneticHeadingDirection]; // º
     NSString *magneticAbbreviationString = NPAbbreviationForDirection(magneticHeadingDirection);
     
+    NSDate *timestampForMeasurement  = newHeading.timestamp;
+    NSTimeInterval howRecentMeasurementIs = [timestampForMeasurement timeIntervalSinceNow];
     
+    if (abs(howRecentMeasurementIs) < NPDefaultRecentTimeInterval)
+    {
     [self.transmissionDictionary setObject:magneticDirectionValueString
                                     forKey:@(NPDictionaryCompassCompassDirectionValueKey)];
     
@@ -181,6 +185,7 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
             NSLog(@"Successfully sent message.");
         }
     }];
+    }
 }
 
 #pragma mark - Pebble WatchDelegate
