@@ -8,8 +8,8 @@ static TextLayer *compass_text_layer;
 static BitmapLayer *icon_layer;
 static GBitmap *icon_bitmap = NULL;
 
-static char compassValue[6] = "";
-static char compassAbbreviationValue[3] = "";
+static char compassValue[6];
+static char compassAbbreviationValue[3];
 
 enum AltitudeKey {
     ALTITUDE_METERS_KEY     = 0x0,      // TUPLE_CSTRING
@@ -44,7 +44,9 @@ static void sync_tuple_changed_callback(const uint32_t key, const Tuple* new_tup
         }
         case COMPASS_DEGREES_KEY:
         {
-//            compassValue = new_tuple->value->cstring;
+            strncpy(compassValue,
+                    new_tuple->value->cstring,
+                    sizeof(compassValue));
             
             if (!displayCompassAbbreviation)
             {
@@ -55,7 +57,9 @@ static void sync_tuple_changed_callback(const uint32_t key, const Tuple* new_tup
         }
         case COMPASS_DIRECTION_KEY:
         {
-//            compassAbbreviationValue = new_tuple->value->cstring;
+            strncpy(compassAbbreviationValue,
+                    new_tuple->value->cstring,
+                    sizeof(compassAbbreviationValue));
             
             if (displayCompassAbbreviation)
             {
@@ -82,12 +86,14 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context)
     }
 }
 
-static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
-//  text_layer_set_text(text_layer, "Up");
+static void up_click_handler(ClickRecognizerRef recognizer, void *context)
+{
+
 }
 
-static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
-//  text_layer_set_text(text_layer, "Down");
+static void down_click_handler(ClickRecognizerRef recognizer, void *context)
+{
+    
 }
 
 static void click_config_provider(void *context) {

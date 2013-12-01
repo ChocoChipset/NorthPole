@@ -165,26 +165,26 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
     
     if (abs(howRecentMeasurementIs) < NPDefaultRecentTimeInterval)
     {
-    [self.transmissionDictionary setObject:magneticDirectionValueString
-                                    forKey:@(NPDictionaryCompassCompassDirectionValueKey)];
-    
-    [self.transmissionDictionary setObject:magneticAbbreviationString
-                                    forKey:@(NPDictionaryCompassCompassAbbreviationKey)];
-    
-    self.directionLabel.text = [NSString stringWithFormat:@"%@, %@", magneticAbbreviationString, magneticDirectionValueString];
-    
-    [self.pebbleWatch appMessagesPushUpdate:self.transmissionDictionary
-                                     onSent:
-     ^(PBWatch *watch, NSDictionary *update, NSError *error)
-    {
-        if (error)
+        [self.transmissionDictionary setObject:magneticDirectionValueString
+                                        forKey:@(NPDictionaryCompassCompassDirectionValueKey)];
+        
+        [self.transmissionDictionary setObject:magneticAbbreviationString
+                                        forKey:@(NPDictionaryCompassCompassAbbreviationKey)];
+        
+        self.directionLabel.text = [NSString stringWithFormat:@"%@, %@", magneticAbbreviationString, magneticDirectionValueString];
+        
+        [self.pebbleWatch appMessagesPushUpdate:self.transmissionDictionary
+                                         onSent:
+         ^(PBWatch *watch, NSDictionary *update, NSError *error)
         {
-            NSLog(@"Error sending message: %@", error);
-        }
-        else {
-            NSLog(@"Successfully sent message.");
-        }
-    }];
+            if (error)
+            {
+                NSLog(@"Error sending message: %@", error);
+            }
+            else {
+                NSLog(@"Successfully sent message.");
+            }
+        }];
     }
 }
 
