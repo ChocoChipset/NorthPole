@@ -13,10 +13,10 @@
   },
   "resources": {
     "media": [
-	{
+      {
         "type": "png",
-        "name": "IMAGE_COMPASS,
-        "file": “img/compass.png"
+        "name": "IMAGE_COMPASS",
+        "file": "img/compass.png"
       }
     ]
   }
