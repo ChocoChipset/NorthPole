@@ -24,9 +24,7 @@
 		3AA150D7184A80F600012E6C /* NorthPoleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA150D6184A80F600012E6C /* NorthPoleTests.m */; };
 		3AA150E1184A820500012E6C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150E0184A820500012E6C /* CoreLocation.framework */; };
 		3AA150E4184A8AB500012E6C /* PebbleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150E3184A8AB500012E6C /* PebbleKit.framework */; };
-		3AA150E5184A8AB500012E6C /* PebbleKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150E3184A8AB500012E6C /* PebbleKit.framework */; };
 		3AA150E7184A8AD200012E6C /* PebbleVendor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150E6184A8AD200012E6C /* PebbleVendor.framework */; };
-		3AA150E8184A8AD200012E6C /* PebbleVendor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150E6184A8AD200012E6C /* PebbleVendor.framework */; };
 		3AA150EA184A8B0200012E6C /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150E9184A8B0200012E6C /* ExternalAccessory.framework */; };
 		3AA150EC184A8B0C00012E6C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150EB184A8B0C00012E6C /* libz.dylib */; };
 		3AA150EE184A8B1200012E6C /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA150ED184A8B1200012E6C /* CoreBluetooth.framework */; };
@@ -46,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A72B080184BE9C10021EE9D /* NPFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NPFunctions.h; sourceTree = "<group>"; };
 		3AA150A5184A80F600012E6C /* NorthPole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NorthPole.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA150A8184A80F600012E6C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3AA150AA184A80F600012E6C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -102,8 +101,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AA150CB184A80F600012E6C /* XCTest.framework in Frameworks */,
-				3AA150E8184A8AD200012E6C /* PebbleVendor.framework in Frameworks */,
-				3AA150E5184A8AB500012E6C /* PebbleKit.framework in Frameworks */,
 				3AA150CD184A80F600012E6C /* UIKit.framework in Frameworks */,
 				3AA150CC184A80F600012E6C /* Foundation.framework in Frameworks */,
 			);
@@ -161,6 +158,7 @@
 				3AA150C1184A80F600012E6C /* NPViewController.m */,
 				3AA150C3184A80F600012E6C /* Images.xcassets */,
 				3AA150AF184A80F600012E6C /* Supporting Files */,
+				3A72B080184BE9C10021EE9D /* NPFunctions.h */,
 			);
 			path = NorthPole;
 			sourceTree = "<group>";
@@ -477,7 +475,7 @@
 		3AA150DE184A80F600012E6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NorthPole.app/NorthPole";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -501,7 +499,7 @@
 		3AA150DF184A80F600012E6C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NorthPole.app/NorthPole";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

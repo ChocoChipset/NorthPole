@@ -6,17 +6,32 @@
 //  Copyright (c) 2013 Hector Zarate. All rights reserved.
 //
 
-#import <CoreLocation/CoreLocation.h>
+
 #import "NPViewController.h"
 #import <PebbleKit/PebbleKit.h>
+#import "NPFunctions.h"
+#import <CoreLocation/CoreLocation.h>
+
+#pragma mark - Local Constants
+
+
+static const NSUInteger NPDictionaryCompassAltimeterValueKey = 0x0;
+static const NSUInteger NPDictionaryCompassCompassAbbreviationKey = 0x1;
+static const NSUInteger NPDictionaryCompassCompassDirectionValueKey = 0x2;
 
 
 static const CLLocationDistance NPDefaultDistanceFilter         = 0.0;  // [m]
 static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
 
+
+#pragma mark -
+
 @interface NPViewController () <CLLocationManagerDelegate, PBPebbleCentralDelegate>
 
 @property (nonatomic, strong) IBOutlet UILabel *altitudeLabel;
+@property (nonatomic, strong) IBOutlet UILabel *directionLabel;
+
+@property (nonatomic, strong) NSMutableDictionary *transmissionDictionary;
 
 @property (nonatomic, strong) PBWatch* pebbleWatch;
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -29,6 +44,7 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
 {
     [super viewDidLoad];
 
+    [self setupTransmissionDictionary];
     [self setupPebble];
     [self setupCoreLocation];
 
@@ -43,6 +59,14 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setupTransmissionDictionary
+{
+    self.transmissionDictionary = [@{@(NPDictionaryCompassAltimeterValueKey): @"2500 m",
+                                    @(NPDictionaryCompassCompassDirectionValueKey): @"SW",
+                                    @(NPDictionaryCompassCompassAbbreviationKey): @"250º"
+                                    } mutableCopy];
 }
 
 - (void)setupPebble
@@ -79,10 +103,11 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
     locationManager.distanceFilter = kCLDistanceFilterNone;
-    
+    locationManager.headingFilter = 4.5;
     self.locationManager = locationManager;
     
     [self.locationManager startUpdatingLocation];
+    [self.locationManager startUpdatingHeading];
 }
 
 - (void) setupPebbleWatch: (PBWatch *)paramPebbleWatch
@@ -108,17 +133,8 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
         
         self.altitudeLabel.text = altitudeString;
         
-        NSDictionary *update = @{@(0):altitudeString };
-        
-        [self.pebbleWatch appMessagesPushUpdate:update onSent:^(PBWatch *watch, NSDictionary *update, NSError *error) {
-            if (!error) {
-                NSLog(@"Successfully sent message.");
-            }
-            else {
-                NSLog(@"Error sending message: %@", error);
-            }
-        }];
-
+        [self.transmissionDictionary setObject:altitudeString
+                                        forKey:@(NPDictionaryCompassAltimeterValueKey)];
     }
 }
 
@@ -135,6 +151,37 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
     [errorView show];
 }
 
+
+- (void)locationManager:(CLLocationManager *)manager
+       didUpdateHeading:(CLHeading *)newHeading
+{
+    CLLocationDirection magneticHeadingDirection = newHeading.magneticHeading;
+
+    NSString *magneticDirectionValueString = [NSString stringWithFormat:@"%0.1f", magneticHeadingDirection]; // º
+    NSString *magneticAbbreviationString = NPAbbreviationForDirection(magneticHeadingDirection);
+    
+    
+    [self.transmissionDictionary setObject:magneticDirectionValueString
+                                    forKey:@(NPDictionaryCompassCompassDirectionValueKey)];
+    
+    [self.transmissionDictionary setObject:magneticAbbreviationString
+                                    forKey:@(NPDictionaryCompassCompassAbbreviationKey)];
+    
+    self.directionLabel.text = [NSString stringWithFormat:@"%@, %@", magneticAbbreviationString, magneticDirectionValueString];
+    
+    [self.pebbleWatch appMessagesPushUpdate:self.transmissionDictionary
+                                     onSent:
+     ^(PBWatch *watch, NSDictionary *update, NSError *error)
+    {
+        if (error)
+        {
+            NSLog(@"Error sending message: %@", error);
+        }
+        else {
+            NSLog(@"Successfully sent message.");
+        }
+    }];
+}
 
 #pragma mark - Pebble WatchDelegate
 
@@ -157,6 +204,5 @@ static const NSTimeInterval NPDefaultRecentTimeInterval         = 15.0; // [s]
         self.pebbleWatch = nil;
     }
 }
-
 
 @end

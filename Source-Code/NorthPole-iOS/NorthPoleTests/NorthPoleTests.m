@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "NPFunctions.h"
 
 @interface NorthPoleTests : XCTestCase
 
@@ -26,9 +27,26 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testAbbreviation
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    NSString *abbreviation;
+    
+    abbreviation = NPAbbreviationForDirection(0);
+    XCTAssertEqualObjects(abbreviation, @"N", @"Failed to abbreviate degrees (N)");
+
+    abbreviation = NPAbbreviationForDirection(45);
+    XCTAssertEqualObjects(abbreviation, @"NW", @"Failed to abbreviate degrees (W)");
+    
+    abbreviation = NPAbbreviationForDirection(90);
+    XCTAssertEqualObjects(abbreviation, @"W", @"Failed to abbreviate degrees (W)");
+    
+    abbreviation = NPAbbreviationForDirection(180);
+    XCTAssertEqualObjects(abbreviation, @"S", @"Failed to abbreviate degrees (S)");
+    
+    abbreviation = NPAbbreviationForDirection(270);
+    XCTAssertEqualObjects(abbreviation, @"E", @"Failed to abbreviate degrees (E)");
+    
 }
+
 
 @end
