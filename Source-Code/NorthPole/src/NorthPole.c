@@ -63,27 +63,35 @@ static void window_load(Window *window)
   GRect bounds = layer_get_bounds(window_layer);
 
     
-  text_layer = text_layer_create((GRect) { .origin = { 0, 0 }, .size = { bounds.size.w, 75 } });
-  icon_layer = bitmap_layer_create(GRect(0, 72, 144, 60));
+    text_layer = text_layer_create((GRect) { .origin = { 0, 0 }, .size = { bounds.size.w, 75 } });
+    icon_layer = bitmap_layer_create(GRect(0, 72, 144, 60));
+    compass_text_layer = text_layer_create((GRect) { .origin = { 0, 108 }, .size = { bounds.size.w, 80 } });
     
-    
+    // background properties
     icon_bitmap = gbitmap_create_with_resource(compassBitmapId);
     bitmap_layer_set_bitmap(icon_layer, icon_bitmap);
     layer_add_child(window_layer, bitmap_layer_get_layer(icon_layer));
     
-    
+    // text properties
   text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);
   text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));
     text_layer_set_text_color(text_layer, GColorWhite);
     text_layer_set_background_color(text_layer, GColorBlack);
-    
   layer_add_child(window_layer, text_layer_get_layer(text_layer));
 
+    // Compass Text Properties
+    text_layer_set_text_alignment(compass_text_layer, GTextAlignmentCenter);
+    text_layer_set_font(compass_text_layer, fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));
+    text_layer_set_text_color(compass_text_layer, GColorBlack);
+    text_layer_set_background_color(compass_text_layer, GColorClear);
+    layer_add_child(window_layer, text_layer_get_layer(compass_text_layer));
+    text_layer_set_text(compass_text_layer, "NW");
 
-    
+        // initial values
     Tuplet initial_values[] = {
         TupletCString(ALTITUDE_METERS_KEY, "99500m"),
     };
+    
     
     app_sync_init(&sync, sync_buffer, sizeof(sync_buffer), initial_values, ARRAY_LENGTH(initial_values),
                   sync_tuple_changed_callback, sync_error_callback, NULL);
