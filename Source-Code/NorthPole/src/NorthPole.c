@@ -1,7 +1,12 @@
 #include <pebble.h>
 
+// Variables
+
 static Window *window;
 static TextLayer *text_layer;
+static TextLayer *compass_text_layer;
+static BitmapLayer *icon_layer;
+static GBitmap *icon_bitmap = NULL;
 
 static char altitude[16];
 
@@ -12,6 +17,10 @@ enum AltitudeKey {
 static AppSync sync;
 static uint8_t sync_buffer[64];
 
+static uint32_t compassBitmapId = RESOURCE_ID_IMAGE_COMPASS;
+
+
+// Functions
 
 
 static void sync_error_callback(DictionaryResult dict_error, AppMessageResult app_message_error, void *context) {
@@ -48,18 +57,29 @@ static void click_config_provider(void *context) {
   window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);
 }
 
-static void window_load(Window *window) {
+static void window_load(Window *window)
+{
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
 
-  text_layer = text_layer_create((GRect) { .origin = { 0, 72 }, .size = { bounds.size.w, 90 } });
+    
+  text_layer = text_layer_create((GRect) { .origin = { 0, 0 }, .size = { bounds.size.w, 75 } });
+  icon_layer = bitmap_layer_create(GRect(0, 72, 144, 60));
+    
+    
+    icon_bitmap = gbitmap_create_with_resource(compassBitmapId);
+    bitmap_layer_set_bitmap(icon_layer, icon_bitmap);
+    layer_add_child(window_layer, bitmap_layer_get_layer(icon_layer));
+    
+    
   text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);
   text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));
     text_layer_set_text_color(text_layer, GColorWhite);
     text_layer_set_background_color(text_layer, GColorBlack);
     
   layer_add_child(window_layer, text_layer_get_layer(text_layer));
-    
+
+
     
     Tuplet initial_values[] = {
         TupletCString(ALTITUDE_METERS_KEY, "99500m"),
