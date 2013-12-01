@@ -1,3 +1,6 @@
+# Pebble
+.lock-waf_darwin_build
+
 # Xcode
 .DS_Store
 */build/*
