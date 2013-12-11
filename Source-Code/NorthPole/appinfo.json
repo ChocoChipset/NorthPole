@@ -3,7 +3,7 @@
   "shortName": "NorthPole",
   "longName": "North Pole",
   "companyName": "MakeAwesomeHappen",
-  “capabilities”: [“location” ],
+  "capabilities": ["location"],
   "versionCode": 1,
   "versionLabel": "1.0.0",
   "watchapp": {
@@ -12,7 +12,7 @@
   "appKeys": {
     "altitude": 0,
     "direction": 1,
-    "directionDegrees:2
+    "directionDegrees":2
   },
   "resources": {
     "media": [
