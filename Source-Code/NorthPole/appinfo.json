@@ -1,8 +1,9 @@
 {
   "uuid": "226834ae-786e-4302-a52f-6e7efc9f990c",
   "shortName": "NorthPole",
-  "longName": "NorthPole",
+  "longName": "North Pole",
   "companyName": "MakeAwesomeHappen",
+  “capabilities”: [“location” ],
   "versionCode": 1,
   "versionLabel": "1.0.0",
   "watchapp": {
