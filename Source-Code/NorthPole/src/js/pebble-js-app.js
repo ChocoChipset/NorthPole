@@ -1,5 +1,10 @@
 function abbreviationForDirection(direction)
 {
+    if (direction < 0.0)
+    {
+    	return "NA";
+    }
+
     var allAbbreviations = ["N", "NW", "W", "SW", "S", "SE", "E", "NE"];
 
     var widthForPointInDegrees = 360.0 / allAbbreviations.length;
@@ -25,17 +30,17 @@ function locationSuccess(pos) {
     var directionKey = abbreviationForDirection(coordinates.heading);
 
 	Pebble.sendAppMessage({
-		"altitude":coordinates.altitude,
+		"altitude":Math.round(coordinates.altitude).toString()+"m",
         "direction":directionKey,
-        "directionDegrees":coordinates.heading
+        "directionDegrees":Math.round(coordinates.heading).toString()
     });
 }
 
 function locationError(err) {
 	Pebble.sendAppMessage({
-		"altitude":0.0,
-		"direction":"NA"
-		"directionDegrees":0.0
+		"altitude":"0.0",
+		"direction":"NA",
+		"directionDegrees":"0.0"
     });
 }
 

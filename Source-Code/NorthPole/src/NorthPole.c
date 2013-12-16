@@ -20,7 +20,7 @@ enum AltitudeKey {
 static bool displayCompassAbbreviation = true;
 
 static AppSync sync;
-static uint8_t sync_buffer[64];
+static uint8_t sync_buffer[128];
 
 static uint32_t compassBitmapId = RESOURCE_ID_IMAGE_COMPASS;
 
