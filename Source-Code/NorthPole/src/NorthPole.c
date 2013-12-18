@@ -108,7 +108,7 @@ static void window_load(Window *window)
   GRect bounds = layer_get_bounds(window_layer);
 
     
-    text_layer = text_layer_create((GRect) { .origin = { 0, 5 }, .size = { bounds.size.w, 75 } });
+    text_layer = text_layer_create((GRect) { .origin = { 0, 14 }, .size = { bounds.size.w, 75 } });
     icon_layer = bitmap_layer_create(GRect(0, -16, 144, 168));
     compass_text_layer = text_layer_create((GRect) { .origin = { 0, 110 }, .size = { bounds.size.w, 80 } });
     
