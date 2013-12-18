@@ -108,26 +108,27 @@ static void window_load(Window *window)
   GRect bounds = layer_get_bounds(window_layer);
 
     
-    text_layer = text_layer_create((GRect) { .origin = { 0, 0 }, .size = { bounds.size.w, 75 } });
-    icon_layer = bitmap_layer_create(GRect(0, 72, 144, 60));
-    compass_text_layer = text_layer_create((GRect) { .origin = { 0, 108 }, .size = { bounds.size.w, 80 } });
+    text_layer = text_layer_create((GRect) { .origin = { 0, 5 }, .size = { bounds.size.w, 75 } });
+    icon_layer = bitmap_layer_create(GRect(0, -16, 144, 168));
+    compass_text_layer = text_layer_create((GRect) { .origin = { 0, 110 }, .size = { bounds.size.w, 80 } });
     
     // background properties
     icon_bitmap = gbitmap_create_with_resource(compassBitmapId);
     bitmap_layer_set_bitmap(icon_layer, icon_bitmap);
+    bitmap_layer_set_background_color(icon_layer, GColorWhite);
     layer_add_child(window_layer, bitmap_layer_get_layer(icon_layer));
     
     // text properties
   text_layer_set_text_alignment(text_layer, GTextAlignmentCenter);
-  text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));
+  text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
     text_layer_set_text_color(text_layer, GColorWhite);
-    text_layer_set_background_color(text_layer, GColorBlack);
+    text_layer_set_background_color(text_layer, GColorClear);
   layer_add_child(window_layer, text_layer_get_layer(text_layer));
 
     // Compass Text Properties
     text_layer_set_text_alignment(compass_text_layer, GTextAlignmentCenter);
-    text_layer_set_font(compass_text_layer, fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));
-    text_layer_set_text_color(compass_text_layer, GColorBlack);
+    text_layer_set_font(compass_text_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
+    text_layer_set_text_color(compass_text_layer, GColorWhite);
     text_layer_set_background_color(compass_text_layer, GColorClear);
     layer_add_child(window_layer, text_layer_get_layer(compass_text_layer));
 

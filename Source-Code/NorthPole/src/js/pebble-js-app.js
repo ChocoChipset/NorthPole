@@ -32,7 +32,7 @@ function locationSuccess(pos) {
 	Pebble.sendAppMessage({
 		"altitude":Math.round(coordinates.altitude).toString()+"m",
         "direction":directionKey,
-        "directionDegrees":Math.round(coordinates.heading).toString()
+        "directionDegrees":Math.round(coordinates.heading).toString()+"º"
     });
 }
 
@@ -40,7 +40,7 @@ function locationError(err) {
 	Pebble.sendAppMessage({
 		"altitude":"0.0",
 		"direction":"NA",
-		"directionDegrees":"0.0"
+		"directionDegrees":"0.0º"
     });
 }
 
