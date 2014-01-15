@@ -50,6 +50,5 @@ Pebble.addEventListener("ready",
     function(e) {
         locationWatcher = window.navigator.geolocation.watchPosition(locationSuccess, locationError, locationOptions);
   	    console.log("JavaScript app ready and running!");
-        setInterval(function(){ getCurrentPosition() }, 1000 / 9);
   }
  );
